@@ -1,0 +1,24 @@
+<div class="container" style="text-align:center">
+  <div class="row" style="text-align:center">
+    <div class="col-md-12" style="font-size:22px"> Latest Blogs </div>
+    <br><br><br><br>
+  </div>
+  <div class="row" *ngIf="allBlogs.length>0" style="text-align:center">
+    <!-- iterative div starts here -->
+    <div *ngFor="let blog of allBlogs" class="col-md-4"> <!--ngFor is basically a for/of loop blog=i-->
+      <div class="panel panel-default">
+        <div class="panel-heading">{{blog.title | uppercase}}</div>
+        <div class="panel-body">
+          <p>{{blog.description}}</p>
+        </div>
+        <div class="panel-footer">Posted on {{blog.created | date | uppercase}}<br /> by {{blog.author}}
+          <br /><br />
+          <a class="btn btn-primary" [routerLink]="['/blog', blog.blogId]">Read</a>
+          <a class="btn btn-danger" (click)="deleteThisBlog(blog.blogId)">Delete</a>
+        </div>
+      </div>
+    </div>
+    <!-- iterative div ends here -->
+  </div>
+
+</div>

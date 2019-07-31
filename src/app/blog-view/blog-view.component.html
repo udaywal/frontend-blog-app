@@ -1,0 +1,36 @@
+<div style="text-align:center">
+    <div class="container">
+      <div class="row" *ngIf="currentBlog">
+        <div class="col-md-12">
+          <h2>{{ currentBlog.title }}</h2>
+          <!-- <small>blog number - {{currentBlog.blogId}}</small> -->
+          <p>posted by {{currentBlog.author}} on {{currentBlog.created | date : "dd/mm/yy"}}</p>
+          <p *ngIf="currentBlog.tags.length!=undefined && currentBlog.tags.length>0">tags : 
+            <span *ngFor="let tag of currentBlog.tags;
+                          let first=first; 
+                          let last=last">{{tag}}{{last ? '' : ', '}}</span><!-- ngFor has functionality to name first and last -->
+          <!-- *ngFor="let tag of currentBlog.tags">{{tag}}, -->
+          <!-- But it showing comma in the last so we replaced it and use first and last with ternary operator-->
+          <br>
+          <!-- <div>{{currentBlog.bodyHtml}}</div> -->
+          <!-- if we are using that simple interpolation, it will show the string as it is.
+          But if we use this innerHtml type of interpolation then it renders the html as html only. -->
+          <div [innerHtml]="currentBlog.bodyHtml"></div>
+          <br>
+          <h5>category - {{currentBlog.category}} </h5>
+        </div>
+      </div>
+      <br>
+      <div class="row" *ngIf="currentBlog">
+        <div class="col-md-4">
+          <a class="btn btn-primary" [routerLink]="['/edit',currentBlog.blogId]">Edit</a>
+        </div>
+        <div>
+          <a class="btn btn-danger" (click)="deleteThisBlog()">Delete</a>
+        </div>
+        <div>
+          <a class="btn btn-warning" (click)="goBackToPreviousPage()">Go Back</a>
+        </div>
+      </div>
+    </div>
+  </div>
